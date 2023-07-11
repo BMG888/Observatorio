@@ -15,6 +15,7 @@ namespace Observatorio.Controllers
         private LaudatosiEntities db = new LaudatosiEntities();
 
         // GET: Analisis
+        // Prueba
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, string pais, string tanalisis, string idioma, int? page)
         {
             ViewBag.ID_idioma = new SelectList(db.Idioma, "ID_idioma", "Descripcion");
