@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Observatorio LAUDATO SI</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/Validaciones.js"></script>
+
+</head>
+<body>
+    <div class="navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href='@Url.Action("Index", "Home")'>
+                    <img alt="logoobservatorio" src="@Url.Content("~/Content/Imagenes/logo.png")" id="barra"/>
+                </a>
+                @*<img src="~/Content/Imagenes/logo.png" id="logo"/>@Html.ActionLink("Observatorio", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li id="li-a">@Html.ActionLink("Inicio", "Index", "Home")</li>
+                    <li id="li-a">@Html.ActionLink("Investigación", "Index", "Investigacions")</li>
+                    <li id="li-a">@Html.ActionLink("Análisis", "Index", "Analisis")</li>
+                    <li id="li-a">@Html.ActionLink("Formación", "Index", "Formacions")</li>
+                    @*<li id="li-a">@Html.ActionLink("Acerca de", "About", "Home")</li>
+                    <li id="li-a">@Html.ActionLink("Contacto", "Contact", "Home")</li>*@
+                    @if (HttpContext.Current.User.IsInRole("Administrador"))
+                    {
+                        <li id="li-a">@Html.ActionLink("Roles", "Index", "Role")</li>
+                    }
+                </ul>                
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid body-content">
+        @RenderBody()        
+    </div>
+    <div class="panel-footer" id="foot">
+        <footer>  
+            <div class="row">
+                <img alt="logoobservatorio" src="~/Content/Imagenes/logo.png" id="logo"/>
+            </div>          
+            <div class="row">
+                <div class="col-sm-3">
+                    <p>
+                        &copy; @DateTime.Now.Year - Observatorio LAUDATO SI
+                    </p>
+                    <p>
+                        Universidad Católica de Costa Rica.
+                    </p>
+                </div>
+                <div class="col-sm-3">
+                    <p>
+                        Desarrollado por: Bryan Méndez Garita.
+                    </p>
+                    <p>
+                        Estudiante de Ingeniería de Sistemas, 2019.
+                    </p>
+                </div>
+                <div class="col-sm-5">
+                    <p>
+                        @Html.Partial("_LoginPartial")
+                    </p>
+                </div>                
+            </div>            
+        </footer>
+    </div>        
+</body>
+</html>

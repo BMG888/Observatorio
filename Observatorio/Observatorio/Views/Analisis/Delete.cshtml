@@ -1,0 +1,77 @@
+﻿@model Observatorio.Analisis
+
+@{
+    ViewBag.Title = "Eliminar análisis";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Eliminar análisis</h2>
+
+<h3>¿Desea eliminar la siguiente información?</h3>
+<div>
+    <h4>Análisis</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nombre del documento
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            Descripción
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        @*<dt>
+            Documento
+        </dt>
+
+        <dd>
+            @using (Html.BeginForm("ShowPDF", "Analisis"))
+            {
+                <input type="hidden" value="@Model.URL" name="fileName" />
+                <button type="submit">Visualizar</button>
+            }
+        </dd>*@
+
+        <dt>
+            Idioma del documento
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Idioma.Descripcion)
+        </dd>
+
+        <dt>
+            País de procedencia
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pais.Descripcion)
+        </dd>
+
+        <dt>
+            Tipo de análisis
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tipo_Analisis.Descripcion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Atrás", "Index")
+        </div>
+    }
+</div>

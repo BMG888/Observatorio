@@ -1,0 +1,67 @@
+﻿@model Observatorio.Models.Usuarios
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
+
+<h2 id="tituloih">Editar cuenta</h2>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.UserID)
+
+    <div class="form-group">
+        @Html.Label("Nombre", new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Nombre, new { @maxlenth = 200, @class = "form-control", @autocomplete = "off" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Apellido", new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Apellido, new { @maxlenth = 200, @class = "form-control", @autocomplete = "off" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Rol", new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.Rol, null, htmlAttributes: new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Correo electrónico", new { @class = "col-md-2 control-label", @autocomplete = "off" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Contraseña", new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Confirmar contraseña", new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <input type="hidden" value="@Model.Rol" name="viejorol" />
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Guardar" class="btn btn-default" />
+            @Html.ActionLink("Atrás", "Index", null, new { @class = "btn btn-default btn-large" })
+        </div>
+    </div>
+</div>
+}

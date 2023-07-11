@@ -1,0 +1,21 @@
+﻿@model Observatorio.Models.IndexViewModel
+@{
+    ViewBag.Title = "Gestionar";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Cambiar la configuración de la cuenta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Contraseña:</dt>
+        <dd>
+            [
+            @Html.ActionLink("Cambiar la contraseña", "ChangePassword")
+            ]
+        </dd>
+        
+    </dl>
+</div>

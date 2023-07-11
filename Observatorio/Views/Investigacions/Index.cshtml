@@ -1,0 +1,125 @@
+﻿@model PagedList.IPagedList<Observatorio.Investigacion>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Investigación";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
+
+<h2 id="tituloih">Investigación</h2>
+<hr />
+
+@if (HttpContext.Current.User.IsInRole("Administrador") || User.IsInRole("Editor"))
+{
+<p>
+    @Html.ActionLink("Crear investigación", "Create", null, new { @class = "btn btn-success btn-large" })
+</p>
+}
+@using (Html.BeginForm("Index", "Investigacions"))
+{
+<div class="form-inline">
+    <div class="col-md-2">
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Nombre del documento", @maxlength = "200", @autocomplete = "off" })
+    </div>
+    <div class="col-md-2">
+        @Html.TextBox("nombreautor", ViewBag.CurrentFilter2 as string, new { @class = "form-control", @placeholder = "Nombre del autor", @maxlength = "200", @autocomplete = "off" })
+    </div>
+    <div class="col-md-2">
+        @Html.DropDownList("idioma", new SelectList(ViewBag.ID_idioma, "Value", "Text"), "-Seleccionar idioma-", new { @class = "form-control" })
+    </div>
+    <div class="col-md-3">
+        @Html.DropDownList("pais", new SelectList(ViewBag.ID_pais, "Value", "Text"), "-Seleccionar país-", new { @class = "form-control" })
+    </div>
+    <div class="col-md-3">
+        @Html.DropDownList("tinvestigacion", new SelectList(ViewBag.ID_TInvestigacion, "Value", "Text"), "-Tipo de investigación-", new { @class = "form-control" })
+    </div>
+    <br />
+    <br />
+    <div class="col-md-2">
+        <input type="submit" value="Buscar" class="btn btn-default" />
+    </div>
+</div>
+}
+<br />
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+
+        </th>
+        <th>
+            Nombre de la investigación
+        </th>
+        @*<th>
+                Descripción
+            </th>*@
+        <th>
+            Autor de la investigación
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.URL)
+            </th>*@
+        <th>
+            Idioma del documento
+        </th>
+        <th>
+            País de procedencia
+        </th>
+        <th>
+            Tipo de investigación
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img alt="png" src="~/Content/Imagenes/pdf.png" id="indeximg" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Autor)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.URL)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Idioma.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pais.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tipo_Investigacion.Descripcion)
+            </td>
+            <td>
+                @if (HttpContext.Current.User.IsInRole("Administrador") || User.IsInRole("Editor"))
+                {
+                    <button class="btn btn-default btn-sm" onclick="location.href='@Url.Action("Edit", "Investigacions", new { id = item.ID_inv })'">Editar</button>
+                }
+                <button class="btn btn-default btn-sm" onclick="location.href='@Url.Action("Details", "Investigacions", new { id = item.ID_inv })'">Detalles</button>
+                @if (HttpContext.Current.User.IsInRole("Administrador") || User.IsInRole("Editor"))
+                {
+                    <button class="btn btn-default btn-sm" onclick="location.href='@Url.Action("Delete", "Investigacions", new { id = item.ID_inv })'">Eliminar</button>                    
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+
+@if (ViewBag.count > 10) // paginacion
+{
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+}

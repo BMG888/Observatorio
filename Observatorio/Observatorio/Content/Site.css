@@ -1,0 +1,76 @@
+﻿body {
+     /*Padding: Distancia del contenido de un objeto, limitación */
+    /*padding-bottom: 20px;*/
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+#logo{
+    height: 200px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.navbar-default .navbar-nav > li > a{ /*color, posicion, tamaño de letra*/
+    color: white;
+    font-size: medium;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    font-weight: bold;
+}
+
+.navbar-default { /*color de fondo de la barra de navegacion*/
+    background-color: #94232b;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0rgba(0, 0, 0, 0.19);
+}
+
+.navbar-nav #li-a:hover { /* efecto al pasar el cursor en la barra de navegacion*/    
+    background-color: white;
+    color: black;
+}
+
+.panel-footer {
+    position: sticky;
+    left: 0;
+    bottom: auto;
+    width: 100%;
+    position: absolute;
+}
+
+#barra {
+    height: 100px;
+}
+
+#barra:hover {
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+}
+
+#foot {
+    background-color: #94232b;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0rgba(0, 0, 0, 0.19);
+    color: white;    
+}
+
+#tituloih {
+    font-family: 'Kanit', cursive;
+}

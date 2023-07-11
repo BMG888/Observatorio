@@ -1,0 +1,101 @@
+﻿@model PagedList.IPagedList<Observatorio.Eventos>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
+
+<h2 id="tituloih">Eventos</h2>
+<hr />
+
+@if (HttpContext.Current.User.IsInRole("Administrador") || User.IsInRole("Editor"))
+{
+    <p>
+        @Html.ActionLink("Crear evento", "Create", null, new { @class = "btn btn-success btn-large" })
+    </p>
+}
+@using (Html.BeginForm("Index", "Eventos"))
+{
+    <div class="form-inline">
+        <div class="col-md-2">
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Nombre del evento", @maxlength = "80", @autocomplete = "off" })
+        </div>
+        <div class="col-md-2">
+            @Html.TextBox("fecha", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Fecha", @maxlength = "80", @autocomplete = "off" })
+        </div>
+        <div class="col-md-3">
+            @Html.DropDownList("pais", new SelectList(ViewBag.ID_pais, "Value", "Text"), "-Seleccionar país-", new { @class = "form-control" })
+        </div>
+        <div class="col-md-2">
+            <input type="submit" value="Buscar" class="btn btn-default" />
+        </div>
+    </div>
+}
+<br />
+<br />
+<br />
+<div>
+    <table class="table">
+        <tr>
+            <th>
+
+            </th>
+            <th>
+                Nombre del evento
+            </th>
+            <th>
+                Fecha
+            </th>
+            <th>
+                Hora
+            </th>
+            <th>
+                País
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img alt="png" src="~/Content/Imagenes/calendario.png" id="indeximg" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hora)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pais.Descripcion)
+                </td>
+                <td>
+                    @if (HttpContext.Current.User.IsInRole("Administrador") || User.IsInRole("Editor"))
+                    {
+                        <button class="btn btn-default btn-sm" onclick="location.href='@Url.Action("Edit", "Eventos", new { id = item.ID_Evento })'">Editar</button>
+                    }
+                    <button class="btn btn-default btn-sm" onclick="location.href='@Url.Action("Details", "Eventos", new { id = item.ID_Evento })'">Detalles</button>
+                    @if (HttpContext.Current.User.IsInRole("Administrador") || User.IsInRole("Editor"))
+                    {
+                        <button class="btn btn-default btn-sm" onclick="location.href='@Url.Action("Delete", "Eventos", new { id = item.ID_Evento })'">Eliminar</button>
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+@if (ViewBag.count > 10) // paginacion
+{
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+}

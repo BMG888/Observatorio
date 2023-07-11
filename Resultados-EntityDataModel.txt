@@ -1,0 +1,3 @@
+﻿Archivo de modelo generado: ObservatorioLaudatosidb.edmx.
+La carga de los metadatos desde la base de datos tardó 00:00:00.3926783.
+La generación del modelo tardó 00:00:01.6833281.

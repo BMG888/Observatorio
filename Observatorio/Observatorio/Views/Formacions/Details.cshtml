@@ -1,0 +1,51 @@
+﻿@model Observatorio.Formacion
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Formacion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nombre de la formación
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            Descripción
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            Nombre de la institución
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nom_Insti)
+        </dd>
+
+        <dt>
+            Link a la página
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.URL)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ID_Formacion }) |
+    @Html.ActionLink("Atrás", "Index")
+</p>

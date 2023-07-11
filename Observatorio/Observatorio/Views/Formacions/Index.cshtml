@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Observatorio.Formacion>
+
+@{
+    ViewBag.Title = "Formación";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Formación</h2>
+
+<p>
+    @Html.ActionLink("Crear formación", "Create", null, new { @class = "btn btn-success btn-large" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Nombre de la formación
+        </th>
+        <th>
+            Descripción
+        </th>
+        <th>
+            Nombre de la institución
+        </th>
+        <th>
+            Link a la página
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nom_Insti)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.URL)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.ID_Formacion }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.ID_Formacion }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.ID_Formacion })
+        </td>
+    </tr>
+}
+
+</table>

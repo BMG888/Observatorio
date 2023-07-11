@@ -1,0 +1,46 @@
+﻿@model Observatorio.Eventos
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
+
+<h2 id="tituloih">Eliminar evento</h2>
+<hr />
+
+<h3 style="padding-left: 5%">¿Desea eliminar la siguiente información?</h3>
+<br />
+<div style="padding-left: 10%">
+    <div class="row">
+        <h4 id="subtitle">Nombre del evento:</h4>
+        <p>@Html.DisplayFor(model => model.Nombre)</p>
+        <br />
+        <h4 id="subtitle">Descripción:</h4>
+        <p style="width: 700px">@Html.DisplayFor(model => model.Descripcion)</p>
+        <br />
+        <h4 id="subtitle">Fecha:</h4>
+        <p>@Html.DisplayFor(model => model.Fecha)</p>
+        <br />
+        <h4 id="subtitle">Hora:</h4>
+        <p>@Html.DisplayFor(model => model.Hora)</p>
+        <br />
+        <h4 id="subtitle">País donde se realizará:</h4>
+        <p>@Html.DisplayFor(model => model.Pais.Descripcion)</p>
+        <br />
+        <h4 id="subtitle">Link a Facebook:</h4>
+        <p>@Html.DisplayFor(model => model.URL)</p>
+        <br />
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> 
+        @Html.ActionLink("Atrás", "Index", null, new { @class = "btn btn-default btn-large" })
+    </div>
+    }
+    <br />
+</div>

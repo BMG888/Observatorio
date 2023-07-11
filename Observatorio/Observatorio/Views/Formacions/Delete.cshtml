@@ -1,0 +1,57 @@
+﻿@model Observatorio.Formacion
+
+@{
+    ViewBag.Title = "Eliminar formación";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Eliminar formación</h2>
+
+<h3>¿Desea eliminar la siguiente información?</h3>
+<div>
+    <h4>Formación</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nombre
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            Descripción
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            Nombre de la institución
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nom_Insti)
+        </dd>
+
+        <dt>
+            Link a la página
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.URL)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Atrás", "Index")
+        </div>
+    }
+</div>

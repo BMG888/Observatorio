@@ -1,0 +1,54 @@
+﻿@model Observatorio.Investigacion
+
+@{
+    ViewBag.Title = "Detalles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
+
+<h2 id="tituloih">Detalles</h2>
+<hr />
+
+<div style="padding-left: 10%"> 
+    <div class="row">
+        <h4 id="subtitle">Nombre de la investigación:</h4>
+        <p>@Html.DisplayFor(model => model.Nombre)</p>
+        <br />
+        <h4 id="subtitle">Autor de la investigación:</h4>
+        <p>@Html.DisplayFor(model => model.Autor)</p>
+        <br />
+        <h4 id="subtitle">Descripción:</h4>
+        <p style="width: 700px">@Html.DisplayFor(model => model.Descripcion)</p>
+        <br />        
+        <h4 id="subtitle">Idioma del documento:</h4>
+        <p>@Html.DisplayFor(model => model.Idioma.Descripcion)</p>
+        <br />
+        <h4 id="subtitle">País de procedencia:</h4>
+        <p>@Html.DisplayFor(model => model.Pais.Descripcion)</p>
+        <br />
+        <h4 id="subtitle">Tipo de investigación:</h4>
+        <p>@Html.DisplayFor(model => model.Tipo_Investigacion.Descripcion)</p>
+        <br />
+        <h4 id="subtitle">Archivo PDF:</h4>
+        <p>
+            @using (Html.BeginForm("Download", "Investigacions"))
+            {
+                <input type="hidden" value="@Model.URL" name="fileName" />
+                <button class="btn btn-default btn-group-sm" type="submit">Descargar</button>
+            }
+            @using (Html.BeginForm("ShowPDF", "Investigacions"))
+            {
+                <input type="hidden" value="@Model.URL" name="fileName" />
+                <button class="btn btn-default btn-group-sm" type="submit">Visualizar</button>
+            }
+        </p>  
+        <br />
+    </div>    
+</div>
+<p style="padding-left: 10%">
+    @if (HttpContext.Current.User.IsInRole("Administrador") || User.IsInRole("Editor"))
+    {
+        <button class="btn btn-default" onclick="location.href='@Url.Action("Edit", "Investigacions", new { id = Model.ID_inv })'">Editar</button>        
+    }
+    @Html.ActionLink("Atrás", "Index", null, new { @class = "btn btn-default btn-large" })
+</p>

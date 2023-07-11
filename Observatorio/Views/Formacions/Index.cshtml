@@ -1,0 +1,93 @@
+﻿@model PagedList.IPagedList<Observatorio.Formacion>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Formación";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
+
+<h2 id="tituloih">Formación</h2>
+<hr />
+
+@if (HttpContext.Current.User.IsInRole("Administrador") || User.IsInRole("Editor"))
+{
+    <p>
+        @Html.ActionLink("Crear formación", "Create", null, new { @class = "btn btn-success btn-large" })
+    </p>
+}
+
+@using (Html.BeginForm("Index", "Formacions"))
+{
+    <div class="form-inline">
+        <div class="col-md-2">
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Nombre de la formación", @maxlength = "200", @autocomplete = "off" })
+        </div>
+        <div class="col-md-2">
+            <input type="submit" value="Buscar" class="btn btn-default" />
+        </div>
+    </div>
+}
+<br />
+<br />
+<br />
+<table class="table">
+    <tr>
+        <th>
+
+        </th>
+        <th>
+            Nombre de la formación
+        </th>
+        @*<th>
+            Descripción
+        </th>*@
+        <th>
+            Nombre de la institución
+        </th>
+        <th>
+            Link a la página
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img alt="png" src="~/Content/Imagenes/formacion.png" id="indeximg" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom_Insti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.URL)
+            </td>
+            <td>
+                @if (HttpContext.Current.User.IsInRole("Administrador") || User.IsInRole("Editor"))
+                {
+                    <button class="btn btn-default btn-sm" onclick="location.href='@Url.Action("Edit", "Formacions", new { id = item.ID_Formacion })'">Editar</button>                    
+                }                
+                <button class="btn btn-default btn-sm" onclick="location.href='@Url.Action("Details", "Formacions", new { id = item.ID_Formacion })'">Detalles</button>
+                @if (HttpContext.Current.User.IsInRole("Administrador") || User.IsInRole("Editor"))
+                {
+                    <button class="btn btn-default btn-sm" onclick="location.href='@Url.Action("Delete", "Formacions", new { id = item.ID_Formacion })'">Eliminar</button>                    
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+
+@if (ViewBag.count > 10) // paginacion
+{
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+}

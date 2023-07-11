@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Observatorio LAUDATO SI</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/Validaciones.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/es.js"></script>
+    <link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+
+</head>
+<body>
+    <div class="navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href='@Url.Action("Index", "Home")'>
+                    <img alt="logoobservatorio" src="@Url.Content("~/Content/Imagenes/ucatolica.jpg")" id="barra"/>
+                </a>
+                @*<img src="~/Content/Imagenes/logo.png" id="logo"/>@Html.ActionLink("Observatorio", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li id="li-a">@Html.ActionLink("INICIO", "Index", "Home")</li>
+                    <li id="li-a">@Html.ActionLink("INVESTIGACIÓN", "Index", "Investigacions")</li>
+                    <li id="li-a">@Html.ActionLink("ANÁLISIS", "Index", "Analisis")</li>
+                    <li id="li-a">@Html.ActionLink("FORMACIÓN", "Index", "Formacions")</li>
+                    <li id="li-a">@Html.ActionLink("EVENTOS", "Index", "Eventos")</li>
+                    @*<li id="li-a">@Html.ActionLink("Acerca de", "About", "Home")</li>
+        <li id="li-a">@Html.ActionLink("Contacto", "Contact", "Home")</li>*@
+                    @if (HttpContext.Current.User.IsInRole("Administrador"))
+                    {
+                        <li id="li-a">@Html.ActionLink("ADMINISTRACIÓN", "Index", "AspNetUsers")</li>
+                    }
+                </ul>                
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid body-content">
+        @RenderBody()        
+    </div>
+    @*<div class="panel-footer" id="foot">
+        <footer>  
+            <div class="row">
+                <img alt="logoobservatorio" src="~/Content/Imagenes/logo.png" id="logo"/>
+            </div>          
+            <div class="row">
+                <div class="col-sm-3">
+                    <p>
+                        &copy; @DateTime.Now.Year - Observatorio LAUDATO SI
+                    </p>
+                    <p>
+                        Universidad Católica de Costa Rica.
+                    </p>
+                </div>
+                <div class="col-sm-3">
+                    <p>
+                        Desarrollado por: Bryan Méndez Garita.
+                    </p>
+                    <p>
+                        Estudiante de Ingeniería de Sistemas, 2019.
+                    </p>
+                </div>
+                <div class="col-sm-5">
+                    <p>
+                        @Html.Partial("_LoginPartial")
+                    </p>
+                </div>                
+            </div>            
+        </footer>
+    </div>*@  
+    <div class="panel-footer">
+        <footer>
+            <div class="row">
+                <br>
+                <div class="col-sm-3" align="center">
+                    <br>
+                    <img alt="laudatosi" src="~/Content/Imagenes/logo.png" id="LogoBibliotecaAbajo">
+                </div>
+                <div class="col-sm-3">
+                    <p><b>Visítenos:</b></p>
+                    <a title="Ubicación: Universidad Católica de Costa Rica, Moravia" href="https://goo.gl/maps/bakSEU2EmSSRnPeS6" target="_blank"><img alt="MapaGPS" src="~/Content/Imagenes/mapa.jpg" id="ImgUbicacion"></a>
+                </div>
+                <div class="col-sm-3">
+                    <p><b>Contáctenos:</b></p>
+                    <p>
+                        <a title="Facebook: Departamento Investigación U Católica" href="https://www.facebook.com/departamentoinvestigacion.ucatolica/" target="_blank"><img alt="ImgFB" src="~/Content/Imagenes/Facebook.png" id="ImgContacto" align="middle" style="padding-right: 5px">Departamento Relaciones Internacionales</a>
+                    </p>
+                    @*<p>
+                    <a title="WhatsApp: Biblioteca U Católica" href="" target="_blank"><img alt="ImgContacto" src="~/Content/Imagenes/WhatsApp.png" id="ImgContacto" align="middle" style="padding-right: 5px">(+506) 8640-3749</a>
+                </p>*@
+                    <p>
+                        <img alt="ImgContacto" src="~/Content/Imagenes/Telefono.png" id="ImgContacto" align="middle" style="padding-right: 5px">4111-7272 | Ext. 113
+                    </p>
+                    <p>
+                        <img alt="ImgCorreo" src="~/Content/Imagenes/Correo.png" id="ImgContacto" align="middle" style="padding-right: 5px">observatoriols@ucatolica.ac.cr
+                    </p>
+                    <p>
+                        <img alt="ImgDireccion" src="~/Content/Imagenes/ClipMap.png" id="ImgContacto" align="middle" style="padding-right: 5px">Moravia, San José, Costa Rica
+                    </p>
+                </div>
+                <div class="col-sm-3">
+                    <input type="button" id="BtnSistemas" class="btn botones" value="Ir a Biblioteca" onclick="window.open('http://biblioteca.ucatolicaiscr.com/')" />
+                    <br>
+                    @*<br>
+                <input type="button" id="BtnSistemas" class="btn botones" value="Ir a 'Sistema 2'" onclick="window.open('') " />
+                <br>
+                <br>
+                <input type="button" id="BtnSistemas" class="btn botones" value="Ir a 'Sistema 3'" onclick="window.open('') " />
+                <br>
+                <br>
+                <input type="button" id="BtnSistemas" class="btn botones" value="Ir a 'Sistema 4'" onclick="window.open('') "/>*@
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3" id="Fecha">
+                    <p><a title="Universidad Católica de Costa Rica" href="http://ucatolica.ac.cr/" target="_blank"><img alt="BaseDatos" src="~/Content/Imagenes/LogoUCAT.png" id="LogoUCATAbajo" align="left" style="padding-right: 20px"></a>&copy; @DateTime.Now.Year - Universidad Católica de Costa Rica</p>
+                    <p>Departamento de Relaciones Internacionales</p>
+                </div>
+                <div class="col-sm-3" id="Desarrollador">
+                    <p>Desarrollado por: Bryan Méndez Garita</p>
+                    <p>Estudiante de Ingeniería en Sistemas, 2019</p>
+                </div>
+                <div class="col-sm-3" id="Login">
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

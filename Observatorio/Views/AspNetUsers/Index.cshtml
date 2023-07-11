@@ -1,0 +1,69 @@
+﻿@model PagedList.IPagedList<Observatorio.Models.Usuarios>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
+
+<h2 id="tituloih">Administración</h2>
+<hr />
+
+@using (Html.BeginForm("Index", "Analisis"))
+{
+    <div class="form-inline">
+        <div class="col-md-2">
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Nombre completo", @maxlength = "80", @autocomplete = "off" })
+        </div>
+        <div class="col-md-2">
+            <input type="submit" value="Buscar" class="btn btn-default" />
+        </div>
+    </div>
+}
+<br />
+<br />
+<br />
+
+<div class="row">
+    <a href="@Url.Action("Register", "Account")" class="btn btn-default">Registrar usuario</a>
+</div>
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            Nombre completo
+        </th>
+        <th>
+            Rol
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img alt="png" src="~/Content/Imagenes/cuenta.png" id="indeximg" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreCompleto)
+            </td>
+            <th>
+                @Html.DisplayFor(modelItem => item.Rol)
+            </th>
+            <td>
+                <button class="btn btn-default btn-sm" onclick="location.href='@Url.Action("Edit", "AspNetUsers", new { id = item.UserID })'">Editar</button>                
+                <button class="btn btn-default btn-sm" onclick="location.href='@Url.Action("Delete", "AspNetUsers", new { id = item.UserID })'">Eliminar</button>
+            </td>
+        </tr>
+    }
+
+</table>
+@if (ViewBag.count > 10) // paginacion
+{
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+}

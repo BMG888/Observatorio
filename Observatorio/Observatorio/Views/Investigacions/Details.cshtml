@@ -1,0 +1,84 @@
+﻿@model Observatorio.Investigacion
+
+@{
+    ViewBag.Title = "Detalles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalles</h2>
+
+<div>
+    <h4>Investigación</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nombre de la investigación
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            Descripción
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            Autor de la investigación
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Autor)
+        </dd>
+
+        <dt>
+            Archivo PDF: 
+        </dt>
+
+        <dd>
+            @using (Html.BeginForm("Download", "Investigacions"))
+            {
+                <input type="hidden" value="@Model.URL" name="fileName" />                
+                <button type="submit">Descargar</button>
+            }
+            @using (Html.BeginForm("ShowPDF", "Investigacions"))
+            {
+                <input type="hidden" value="@Model.URL" name="fileName" />                
+                <button type="submit">Visualizar</button>
+            }
+        </dd>
+
+        <dt>
+            Idioma del documento
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Idioma.Descripcion)
+        </dd>
+
+        <dt>
+            País de procedencia
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pais.Descripcion)
+        </dd>
+
+        <dt>
+            Tipo de investigación
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tipo_Investigacion.Descripcion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ID_inv }) |
+    @Html.ActionLink("Atrás", "Index")
+</p>

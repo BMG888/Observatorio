@@ -1,0 +1,33 @@
+﻿@model Observatorio.Formacion
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
+<h2 id="tituloih">Detalles</h2>
+<hr />
+<div style="padding-left: 10%">
+    <div class="row">
+        <h4 id="subtitle">Nombre de la formación:</h4>
+        <p>@Html.DisplayFor(model => model.Nombre)</p>
+        <br />
+        <h4 id="subtitle">Descripción:</h4>
+        <p style="width: 700px">@Html.DisplayFor(model => model.Descripcion)</p>
+        <br />
+        <h4 id="subtitle">Nombre de la institución:</h4>
+        <p>@Html.DisplayFor(model => model.Nom_Insti)</p>
+        <br />
+        <h4 id="subtitle">Link a la página:</h4>        
+        <a href="@Model.URL" target="_blank">@Model.URL</a>
+        <br />
+        <br />
+    </div>    
+</div>
+<p style="padding-left: 10%">
+    @if (HttpContext.Current.User.IsInRole("Administrador") || User.IsInRole("Editor"))
+    {
+        <button class="btn btn-default" onclick="location.href='@Url.Action("Edit", "Formacions", new { id = Model.ID_Formacion })'">Editar</button>        
+    }
+    @Html.ActionLink("Atrás", "Index", null, new { @class = "btn btn-default btn-large" })
+</p>
